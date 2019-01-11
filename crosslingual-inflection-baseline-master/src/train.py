@@ -46,11 +46,15 @@ def get_args():
     # yapf: disable
     parser = argparse.ArgumentParser()
     parser.add_argument('--seed', default=0, type=int)
-    parser.add_argument('--dataset', required=True, type=Data, choices=list(Data))
-    parser.add_argument('--train', required=True, nargs='+')
-    parser.add_argument('--dev', required=True)
+    parser.add_argument('--dataset', default="sigmorphon19task1", type=Data, choices=list(Data))
+    # parser.add_argument('--dataset', default="sigmorphon19task1",required=True, type=Data, choices=list(Data))
+    parser.add_argument('--train', default=["../sample/adyghe--kabardian/adyghe-train-high", "../sample/adyghe--kabardian/kabardian-train-low"], nargs='+')
+    # parser.add_argument('--train', default="sample/adyghe--kabardian/adyghe-train-high sample/adyghe--kabardian/kabardian-train-low",required=True, nargs='+')
+    parser.add_argument('--dev', default="../sample/adyghe--kabardian/kabardian-dev")
+    # parser.add_argument('--dev', default="sample/adyghe--kabardian/kabardian-dev",required=True)
     parser.add_argument('--test', default=None, type=str)
-    parser.add_argument('--model', required=True, help='dump model filename')
+    parser.add_argument('--model', default="model/sigmorphon19/task1/tag-soft/adyghe--kabardian", help='dump model filename')
+    # parser.add_argument('--model', default="model/sigmorphon19/task1/tag-soft/adyghe--kabardian",required=True, help='dump model filename')
     parser.add_argument('--load', default='', help='load model and continue training; with `smart`, recover training automatically')
     parser.add_argument('--bs', default=20, type=int, help='training batch size')
     parser.add_argument('--epochs', default=20, type=int, help='maximum training epochs')
@@ -67,7 +71,7 @@ def get_args():
     parser.add_argument('--trg_layer', default=1, type=int, help='target decoder number of layers')
     parser.add_argument('--src_hs', default=200, type=int, help='source encoder hidden dimension')
     parser.add_argument('--trg_hs', default=200, type=int, help='target decoder hidden dimension')
-    parser.add_argument('--arch', required=True, type=Arch, choices=list(Arch))
+    parser.add_argument('--arch', default="soft", type=Arch, choices=list(Arch))
     parser.add_argument('--wid_siz', default=11, type=int, help='maximum transition in 1st-order hard attention')
     parser.add_argument('--loglevel', default='info', choices=['info', 'debug'])
     parser.add_argument('--saveall', default=False, action='store_true', help='keep all models')
@@ -342,6 +346,7 @@ def main():
     '''
     main
     '''
+    print(os.getcwd())
     opt = get_args()
     util.maybe_mkdir(opt.model)
     logger = util.get_logger(opt.model + '.log', log_level=opt.loglevel)

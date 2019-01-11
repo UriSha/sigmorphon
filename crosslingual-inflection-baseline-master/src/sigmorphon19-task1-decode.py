@@ -14,10 +14,10 @@ from util import maybe_mkdir
 def get_args():
     # yapf: disable
     parser = argparse.ArgumentParser()
-    parser.add_argument('--in_file', required=True, help='Dev/Test file')
-    parser.add_argument('--out_file', required=True, help='Output file')
-    parser.add_argument('--lang', required=True, help='Language tag')
-    parser.add_argument('--model', required=True, help='Path to model')
+    parser.add_argument('--in_file',default="sample/adyghe--kabardian/kabardian-dev", help='Dev/Test file')
+    parser.add_argument('--out_file', default='decode/adyghe--kabardian-dev-out', help='Output file')
+    parser.add_argument('--lang',dafult="kabardian", help='Language tag')
+    parser.add_argument('--model', default='sample/model/adyghe--kabardian.1-mono.pth', help='Path to model')
     parser.add_argument('--max_len', default=100, type=int)
     parser.add_argument('--decode', default='greedy', choices=['greedy', 'beam'])
     parser.add_argument('--beam_size', default=5, type=int)
