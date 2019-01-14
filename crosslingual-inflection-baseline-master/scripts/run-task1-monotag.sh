@@ -3,7 +3,7 @@ arch=$1
 pair=$2
 highreslang=$(echo $pair|sed -e 's/--/:/g'|cut -d: -f1)
 lowreslang=$(echo $pair|sed -e 's/--/:/g'|cut -d: -f2)
-python src/train.py \
+python ../src/train.py \
     --dataset sigmorphon19task1 \
     --train sample/$pair/$highreslang-train-high sample/$pair/$lowreslang-train-low  \
     --dev sample/$pair/$lowreslang-dev \
